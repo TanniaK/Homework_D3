@@ -5,15 +5,20 @@
  
 <!-- Название у нас будет proudcts -->
 {% block title %}
-News
+Seach news
 {% endblock title %}
  
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-<h1>NEWS</h1>
-<h4>{{ time_now|date:'M d Y' }}</h4>
+<h1>NEWS SEARCH</h1>
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Find">
+
+</form>
+
 <hr>
-      <table>
+        <table>
         {% for news_id in news %}
           <p>
             <h5>
@@ -25,13 +30,13 @@ News
             
           </p>
         {% endfor %}
-      </table>
+        </table>
         {% if is_paginated %}
  
         <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
         {% if page_obj.has_previous %}
-            <a href="?page=1">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+            <a href="?{{ request.get_full_path|update_page:1}}">First</a>
+            <a href="?{{ request.get_full_path|update_page:page_obj.previous_page_number}}"><<<</a>
         {% endif %}
      
         <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->

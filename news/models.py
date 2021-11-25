@@ -21,11 +21,17 @@ class Author(models.Model): # наследуемся от класса Model
         print(pRat,' + ',comRat)
         self.ratingAuthor = pRat * 3 + comRat
         self.save()
+    
+    def __str__(self):
+        return self.authorUser.username
 
     
 
 class Category(models.Model):
     nameCategory = models.CharField(max_length= 64, unique=True )
+
+    def __str__(self): 
+        return self.nameCategory
 
 class Post(models.Model):
     authorPost = models.ForeignKey(Author, on_delete =models.CASCADE)
@@ -35,7 +41,7 @@ class Post(models.Model):
        (NEWS, 'Новость'),
        (ARTICLE, 'Статья')
     )
-    typePost = models.CharField(max_length=2, choices=POST_CHOISE, default=ARTICLE)
+    typePost = models.CharField(max_length=2, choices=POST_CHOISE, default=NEWS)
     datetimePost = models.DateTimeField(auto_now_add=True)
     categoryPost =models.ManyToManyField(Category, through='PostCategory')
     titlePost = models.CharField(max_length= 128)

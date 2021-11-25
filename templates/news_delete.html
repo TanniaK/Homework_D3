@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+ DELETE NEWS
+{% endblock title %}
+
+{% block content %}
+<h2>Do you really want to delete this news:</h2>
+
+<h4>{{ news_id.titlePost }}</h4>
+<p>{{ news_id.textPost }}</p>
+<br>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="DELETE">
+    </form>
+{% endblock content %}
